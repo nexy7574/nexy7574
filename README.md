@@ -1,3 +1,46 @@
+<!--
+
+|\  \|\  \|\   __  \|\  \     |\   ___ \        |\  \|\  \|\   __  \|\  \      
+\ \  \\\  \ \  \|\  \ \  \    \ \  \_|\ \       \ \  \\\  \ \  \|\  \ \  \     
+ \ \   __  \ \  \\\  \ \  \    \ \  \ \\ \       \ \  \\\  \ \   ____\ \  \    
+  \ \  \ \  \ \  \\\  \ \  \____\ \  \_\\ \       \ \  \\\  \ \  \___|\ \__\   
+   \ \__\ \__\ \_______\ \_______\ \_______\       \ \_______\ \__\    \|__|   
+    \|__|\|__|\|_______|\|_______|\|_______|        \|_______|\|__|        ___ 
+                                                                          |\__\
+                                                                          \|__|
+--> 
+<!-- If someone told you to copy/paste something here you have an 11/10 chance you're being scammed. -->
+<!-- Pasting anything in here could give attackers access to your Github account. ->
+<!-- Unless you understand exactly what you are doing, close this window and stay safe. -->
+<!-- If you do understand exactly what you are doing, you should come work with us https://beta.dragdev.xyz -->
+
+                                                                               
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### Hi there 👋
 
 I'm eek.
