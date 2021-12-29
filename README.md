@@ -12,89 +12,21 @@
 <!-- If someone told you to copy/paste something here you have an 11/10 chance you're being scammed. -->
 <!-- Pasting anything in here could give attackers access to your Github account. ->
 <!-- Unless you understand exactly what you are doing, close this window and stay safe. -->
-<!-- If you do understand exactly what you are doing, you should come work with us https://beta.dragdev.xyz -->
-
-                                                                               
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- No seriously we need staff -->
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- Just kidding (although the warning is true), paste whatever you want, its your browser) -->
 
 # Hi there 👋
 
 ## About me
 I'm eek.
-I do stuff.
+I make simple programs that do simple operations reliably. Discord bots, APIs, system automation, I do that, and it usually works.
 
 * Name: eek
 
 * Age: 15
 
-* Pronouns: they/them/she/her/it/its
+* Pronouns: she/they/it
 
-* Orientation & Gender: [Asexual](https://lgbta.wikia.org/wiki/Asexual), [Omniromantic](https://lgbta.wikia.org/wiki/Omniromantic), [Non-Binary](https://lgbta.wikia.org/wiki/Non-Binary) (More specifically, [Genderfae](https://lgbta.wikia.org/wiki/Genderfae)), [Polyamorous](https://lgbta.wikia.org/wiki/Polyamorous)
+* Orientation & Gender: [Asexual](https://lgbta.wikia.org/wiki/Asexual), [Omniromantic](https://lgbta.wikia.org/wiki/Omniromantic), [Non-Binary](https://lgbta.wikia.org/wiki/Non-Binary), [Polyamorous](https://lgbta.wikia.org/wiki/Polyamorous)
 
 ## Things you should not look at if you know how to program
 Check out my sites:
@@ -112,7 +44,7 @@ Or you can look at,
 
 ![Overall Github Stats](https://github-readme-stats.vercel.app/api?username=EEKIM10&show_icons=true&theme=dracula)
 
-![Programming language stats (disclaimer: I'm not good at ALL of these)](https://github-readme-stats.vercel.app/api/top-langs?username=EEKIM10&show_icons=true&theme=dracula&hide_border=true&border_radius=12&hide=CSS,HTML&langs_count=5)
+![Programming language stats (disclaimer: I'm not good at ALL/any of these)](https://github-readme-stats.vercel.app/api/top-langs?username=EEKIM10&show_icons=true&theme=dracula&hide_border=true&border_radius=12&hide=CSS,HTML&langs_count=5)
 
 [![My Discord Server](https://img.shields.io/badge/dynamic/json?color=%237289DA&label=Discord&query=presence_count&suffix=%20Online&url=https%3A%2F%2Fdiscord.com%2Fapi%2Fguilds%2F706271127542038608%2Fwidget.json&style=for-the-badge&logo=discord)](https://discord.gg/T9u3Qcm)
 
