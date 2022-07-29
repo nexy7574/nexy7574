@@ -26,7 +26,7 @@ I make simple programs that do simple operations reliably. Discord bots, APIs, s
 
 * Pronouns: she/they/it
 
-* Orientation & Gender: [Asexual](https://lgbta.wikia.org/wiki/Asexual), [Omniromantic](https://lgbta.wikia.org/wiki/Omniromantic), [Non-Binary](https://lgbta.wikia.org/wiki/Non-Binary), [Polyamorous](https://lgbta.wikia.org/wiki/Polyamorous)
+* Orientation & Gender: [Asexual](https://www.lgbtqia.wiki//wiki/Asexual), [Omniromantic](https://www.lgbtqia.wiki/wiki/Omniromantic), [Non-Binary](https://www.lgbtqia.wiki/wiki/Non-Binary), [Polyamorous](https://www.lgbtqia.wiki/wiki/Polyamorous)
 
 ## Things you should not look at if you know how to program
 Check out my sites:
