@@ -38,6 +38,6 @@ I make simple programs that do simple operations reliably. Discord bots, APIs, s
 
 ![Programming language stats (disclaimer: I'm not good at ALL/any of these)](https://github-readme-stats.vercel.app/api/top-langs?username=EEKIM10&show_icons=true&theme=dracula&hide_border=true&border_radius=12&hide=CSS,HTML&langs_count=5)
 
-[![My Discord Server](https://img.shields.io/badge/dynamic/json?color=%237289DA&label=Discord&query=presence_count&suffix=%20Online&url=https%3A%2F%2Fdiscord.com%2Fapi%2Fguilds%2F706271127542038608%2Fwidget.json&style=for-the-badge&logo=discord)](https://discord.gg/T9u3Qcm)
+[![My Discord Server](https://img.shields.io/badge/dynamic/json?color=%237289DA&label=Discord&query=presence_count&suffix=%20Online&url=https%3A%2F%2Fdiscord.com%2Fapi%2Fguilds%2F706271127542038608%2Fwidget.json&style=for-the-badge&logo=discord)](https://discord.gg/TveBeG7)
 
 [![My Matrix Username](https://img.shields.io/badge/Matrix-%40eek4015%3Amatrix.org-%230dbd8b?style=for-the-badge&logo=matrix)](https://matrix.to/#/@eek4015:matrix.org)
