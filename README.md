@@ -22,23 +22,15 @@ I make simple programs that do simple operations reliably. Discord bots, APIs, s
 
 * Name: eek
 
-* Age: 15
+* Age: 16
 
-* Pronouns: she/they/it
+* Pronouns: she/her/it/its
 
-* Orientation & Gender: [Asexual](https://www.lgbtqia.wiki//wiki/Asexual), [Omniromantic](https://www.lgbtqia.wiki/wiki/Omniromantic), [Non-Binary](https://www.lgbtqia.wiki/wiki/Non-Binary), [Polyamorous](https://www.lgbtqia.wiki/wiki/Polyamorous)
+* Orientation & Gender: [Demisexual](https://www.lgbtqia.wiki/wiki/Demisexual) [Lesbian](https://www.lgbtqia.wiki/wiki/Lesbian), [Demiromantic](https://www.lgbtqia.wiki/wiki/Demiromantic), [Transgender (MTF)](https://www.lgbtqia.wiki/wiki/Transgender), and [Polyamorous](https://www.lgbtqia.wiki/wiki/Polyamorous)
 
 ## Things you should not look at if you know how to program
-Check out my sites:
-
-(sites starting with `!` are pure-HTML, and are quite shit)
-
-* [[!] DragDev Studios](https://beta.dragdev.xyz)
-* [[!] YourApps](https://yourapps.cyou) ([beta](https://next-yourapps-cyou-eeky.vercel.app/))
-
-Or you can look at,
 * [My Projects](https://github.com/EEKIM10?tab=repositories)
-* [DragDev Studios' Projects](https://github.com/dragdev-studios)
+* [My Website](https://nexy7574.cyou/)
 
 ## Fancy image things
 
