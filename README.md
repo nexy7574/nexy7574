@@ -17,16 +17,7 @@
 # Hi there 👋
 
 ## About me
-I'm eek.
-I make simple programs that do simple operations reliably. Discord bots, APIs, system automation, I do that, and it usually works.
-
-* Name: eek
-
-* Age: 16
-
-* Pronouns: she/her/it/its
-
-* Orientation & Gender: [Demisexual](https://www.lgbtqia.wiki/wiki/Demisexual) [Lesbian](https://www.lgbtqia.wiki/wiki/Lesbian), [Demiromantic](https://www.lgbtqia.wiki/wiki/Demiromantic), [Transgender (MTF)](https://www.lgbtqia.wiki/wiki/Transgender), and [Polyamorous](https://www.lgbtqia.wiki/wiki/Polyamorous)
+[Moved to my website](https://nexy7574.cyou/about)
 
 ## Things you should not look at if you know how to program
 * [My Projects](https://github.com/EEKIM10?tab=repositories)
