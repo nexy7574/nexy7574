@@ -22,6 +22,7 @@ BLOCK=(
     'api.mixpanel.com'
     'app-measurement.com'
     'firebaselogging-pa.googleapis.com'
+    'confection-status.netlify.app'
 )
 
 for i in $(seq 0 100); do
