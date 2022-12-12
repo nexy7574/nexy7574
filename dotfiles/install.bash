@@ -10,8 +10,8 @@ if [ $NOBUILD != "1" ] then;
     else
         echo "Unknown package manager. Please refer to https://github.com/pyenv/pyenv/wiki#suggested-build-environment." > /dev/stderr
         exit -1
-    fi;
-fi;
+    fi
+fi
 
 INSTALLER=$INSTALLER || "apt install -y"
 
