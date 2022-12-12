@@ -34,7 +34,7 @@ echo 'Installing pyenv'
 wget https://pyenv.run -qO - | bash > /dev/null || exit 7
 if [ "$NOBUILD" !=  "1" ]; then
     echo 'Installing build dependencies'
-    $INSTALLER $PACKAGES || exit 13
+    $INSTALLER $BUILD_PACKAGES || exit 13
 fi;
 if [ "$NOPYTHON" != "1" ]; then
     echo 'Installing python 3.11'
