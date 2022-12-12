@@ -2,6 +2,8 @@
 
 echo 'Checking for wget'
 wget -V > /dev/null 2> /dev/null || sudo apt install wget || sudo pacman -S wget || (echo 'Unable to install wget' && exit 1)
+echo 'Removing existing installations'
+rm -rf $HOME/.pyenv $HOME/.oh-my-zsh $HOME/.nvm
 echo 'Installing oh-my-zsh'
 export RUNZSH=no
 export CHSH=no
