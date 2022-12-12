@@ -1,24 +1,21 @@
 #!/usr/bin/env bash
 cd /tmp
 
-if [ "$NOBUILD" == "1" ]; then
-    echo "Skipping build dependencies"
+if [ -f /usr/sbin/apt ]; then
+    INSTALLER='sudo -E apt install -y'
+    BUILD_PACKAGES='build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev'
+elif [ -f /usr/sbin/pacman ]; then
+    INSTALLER='sudo -E pacman -Sq --noconfirm --needed'
+    BUILD_PACKAGES='base-devel openssl zlib xz tk'
 else
-    if [ -f /usr/sbin/apt ]; then
-        INSTALLER='sudo -E apt install -y'
-        BUILD_PACKAGES='build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev'
-    elif [ -f /usr/sbin/pacman ]; then
-        INSTALLER='sudo -E pacman -Sq --noconfirm --needed'
-        BUILD_PACKAGES='base-devel openssl zlib xz tk'
-    else
-        echo 'Unknown package manager. Please refer to https://github.com/pyenv/pyenv/wiki#suggested-build-environment.' > /dev/stderr
-        export NOBUILD="1"
-        export NOPYTHON="1"
-    fi
+    echo 'Unknown package manager. Please refer to https://github.com/pyenv/pyenv/wiki#suggested-build-environment.' > /dev/stderr
+    export NOBUILD="1"
+    export NOPYTHON="1"
 fi
 
-echo 'Checking for wget'
-wget -V > /dev/null 2> /dev/null || $INSTALLER wget sudo || (echo 'Unable to install wget' && exit 1)
+
+echo 'Installing requirements'
+$INSTALLER git wget curl zsh rsync > /dev/null || exit 1
 echo 'Removing existing installations'
 rm -rf $HOME/.pyenv $HOME/.oh-my-zsh $HOME/.nvm
 echo 'Installing oh-my-zsh'
@@ -42,9 +39,9 @@ if [ "$NOPYTHON" != "1" ]; then
     echo 'Installing pipx'
     $HOME/.pyenv/shims/python3 -m pip install --user pipx || exit 10
     echo 'Installing cli-utils via pipx'
-    $HOME/.local/bin/pipx install git+https://github.com/EEKIM10/cli-utils || exit 11
+    $HOME/.local/bin/pipx install git+https://github.com/EEKIM10/cli-utils --force --verbose --python $HOME/.pyenv/shims/python3 || exit 11
 fi;
-if [ $NONVM != "1" ]; then
+if [ "$NONVM" != "1" ]; then
     echo 'Installing nvm'
     wget -O- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash || exit 9
 fi;
