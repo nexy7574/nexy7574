@@ -50,7 +50,7 @@ echo 'Downloading dotfiles repo'
 FN="EEKIM10-DOTFILES-${RANDOM}"
 git clone https://github.com/EEKIM10/EEKIM10.git $FN || exit 13
 cp $FN/dotfiles/.zshrc ~/.zshrc
-sudo rsync -azhPRulc EEKIM10/dotfiles/NetworkManager/ /etc
+sudo rsync -azhPr EEKIM10/dotfiles/NetworkManager /etc
 mkdir -p ~/.ssh
 cp $FN/dotfiles/.ssh/config ~/.ssh/config
 ping -c 1 -W 3 192.168.0.32 > /dev/null 2> /dev/null
