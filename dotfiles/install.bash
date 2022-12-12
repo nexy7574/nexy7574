@@ -12,4 +12,4 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 echo 'Installing zsh-autosuggestions'
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions || exit 5
 echo 'Restarting shell'
-zsh || exit 6
+zsh -l || exit 6
