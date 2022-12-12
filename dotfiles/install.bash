@@ -11,11 +11,11 @@ export RUNZSH=no
 export CHSH=no
 sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -qO -)" || exit 3
 echo 'Installing zsh-autosuggestions'
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting || exit 4
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting > /dev/null || exit 4
 echo 'Installing zsh-autosuggestions'
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions || exit 5
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions > /dev/null || exit 5
 echo 'Installing pyenv'
-wget https://pyenv.run -qO - | bash || exit 7
+wget https://pyenv.run -qO - | bash > /dev/null || exit 7
 echo 'Installing build dependencies'
 if [ -f /etc/debian_version ]; then
     sudo apt update; sudo apt install build-essential libssl-dev zlib1g-dev \
@@ -30,10 +30,11 @@ if [ -f /etc/alpine-release ]; then
 fi
 echo 'Installing python 3.11'
 $HOME/.pyenv/bin/pyenv install 3.11.0 || exit 8
+pyenv global 3.11.0
 echo 'Installing nvm'
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash || exit 9
 echo 'Installing pipx'
-$HOME/.pyenv/shims/python3.11 -m pip install --user pipx || exit 10
+$HOME/.pyenv/shims/python3 -m pip install --user pipx || exit 10
 echo 'Installing cli-utils via pipx'
 $HOME/.local/bin/pipx install git+https://github.com/EEKIM10/cli-utils || exit 11
 echo 'Downloading zsh config'
