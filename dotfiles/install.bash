@@ -7,7 +7,7 @@ if [ $NOBUILD != "1" ] then;
     elif [ -f /usr/sbin/pacman ]; then
         INSTALLER="sudo -E pacman -Sq --noconfirm --needed"
         BUILD_PACKAGES="base-devel openssl zlib xz tk"
-    else; then
+    else
         echo "Unknown package manager. Please refer to https://github.com/pyenv/pyenv/wiki#suggested-build-environment." > /dev/stderr
         exit -1
     fi;
