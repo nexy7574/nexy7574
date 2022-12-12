@@ -47,11 +47,12 @@ if [ "$NONVM" != "1" ]; then
 fi;
 echo 'Downloading dotfiles repo'
 # wget https://github.com/EEKIM10/EEKIM10/raw/master/dotfiles/.zshrc -qO ~/.zshrc || exit 2
-git clone https://github.com/EEKIM10/EEKIM10.git || exit 13
-cp EEKIM10/dotfiles/.zshrc ~/.zshrc
+FN="EEKIM10-DOTFILES-${RANDOM}"
+git clone https://github.com/EEKIM10/EEKIM10.git $FN || exit 13
+cp $FN/dotfiles/.zshrc ~/.zshrc
 sudo rsync -azhPRulc EEKIM10/dotfiles/NetworkManager/ /etc
 mkdir -p ~/.ssh
-cp EEKIM10/dotfiles/.ssh/config ~/.ssh/config
+cp $FN/dotfiles/.ssh/config ~/.ssh/config
 ping -c 1 -W 3 192.168.0.32 > /dev/null 2> /dev/null
 if [ $? -eq 0 ]; then
     echo 'Connecting to raspberry pi to get SSH key.'
