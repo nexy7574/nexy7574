@@ -32,11 +32,11 @@ echo 'Installing zsh-autosuggestions'
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions > /dev/null || exit 5
 echo 'Installing pyenv'
 wget https://pyenv.run -qO - | bash > /dev/null || exit 7
-if [ "$NOBUILD" !=  "1"]; then
+if [ "$NOBUILD" !=  "1" ]; then
     echo 'Installing build dependencies'
     $INSTALLER $PACKAGES || exit 13
 fi;
-if [ "$NOPYTHON" != "1"]; then
+if [ "$NOPYTHON" != "1" ]; then
     echo 'Installing python 3.11'
     $HOME/.pyenv/bin/pyenv install 3.11.0 || exit 8
     pyenv global 3.11.0
@@ -45,13 +45,13 @@ if [ "$NOPYTHON" != "1"]; then
     echo 'Installing cli-utils via pipx'
     $HOME/.local/bin/pipx install git+https://github.com/EEKIM10/cli-utils || exit 11
 fi;
-if [ $NONVM != "1"]; then
+if [ $NONVM != "1" ]; then
     echo 'Installing nvm'
     wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash || exit 9
 fi;
 echo 'Downloading zsh config'
 wget https://github.com/EEKIM10/EEKIM10/raw/master/dotfiles/.zshrc -qO ~/.zshrc || exit 2
 echo 'Setting ZSH as default shell'
-chsh -s $(which zsh) || exit 12
+chsh -s /usr/bin/zsh || exit 12
 echo 'Restarting shell'
 zsh -l || exit 6
