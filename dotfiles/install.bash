@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
+INSTALLER=$INSTALLER || "apt install -y"
+
 echo 'Checking for wget'
-wget -V > /dev/null 2> /dev/null || sudo apt install wget || sudo pacman -S wget || (echo 'Unable to install wget' && exit 1)
+wget -V > /dev/null 2> /dev/null || $INSTALLER wget sudo || (echo 'Unable to install wget' && exit 1)
 echo 'Removing existing installations'
 rm -rf $HOME/.pyenv $HOME/.oh-my-zsh $HOME/.nvm
 echo 'Installing oh-my-zsh'
@@ -14,6 +16,18 @@ echo 'Installing zsh-autosuggestions'
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions || exit 5
 echo 'Installing pyenv'
 wget https://pyenv.run -qO - | bash || exit 7
+echo 'Installing build dependencies'
+if [ -f /etc/debian_version ]; then
+    sudo apt update; sudo apt install build-essential libssl-dev zlib1g-dev \
+    libbz2-dev libreadline-dev libsqlite3-dev curl llvm \
+    libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+fi
+if [ -f /etc/arch-release ]; then
+  sudo pacman -Sy --needed base-devel openssl zlib xz tk
+fi;
+if [ -f /etc/alpine-release ]; then
+  sudo apk add --no-cache git bash build-base libffi-dev openssl-dev bzip2-dev zlib-dev xz-dev readline-dev sqlite-dev tk-dev
+fi
 echo 'Installing python 3.11'
 $HOME/.pyenv/bin/pyenv install 3.11.0 || exit 8
 echo 'Installing nvm'
