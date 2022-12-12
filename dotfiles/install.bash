@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+cd /tmp
 
 if [ "$NOBUILD" == "1" ]; then
     echo "Skipping build dependencies"
@@ -15,8 +16,6 @@ else
         export NOPYTHON="1"
     fi
 fi
-
-INSTALLER=$INSTALLER || "apt install -y"
 
 echo 'Checking for wget'
 wget -V > /dev/null 2> /dev/null || $INSTALLER wget sudo || (echo 'Unable to install wget' && exit 1)
@@ -49,9 +48,22 @@ if [ $NONVM != "1" ]; then
     echo 'Installing nvm'
     wget -O- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash || exit 9
 fi;
-echo 'Downloading zsh config'
-wget https://github.com/EEKIM10/EEKIM10/raw/master/dotfiles/.zshrc -qO ~/.zshrc || exit 2
+echo 'Downloading dotfiles repo'
+# wget https://github.com/EEKIM10/EEKIM10/raw/master/dotfiles/.zshrc -qO ~/.zshrc || exit 2
+git clone https://github.com/EEKIM10/EEKIM10.git || exit 13
+cp EEKIM10/dotfiles/.zshrc ~/.zshrc
+sudo rsync -azhPRulc EEKIM10/dotfiles/NetworkManager/ /etc
+mkdir -p ~/.ssh
+cp EEKIM10/dotfiles/.ssh/config ~/.ssh/config
+ping -c 1 -W 3 192.168.0.32 > /dev/null 2> /dev/null
+if [ $? -eq 0 ]; then
+    echo 'Connecting to raspberry pi to get SSH key.'
+    rsync -azhP pi:/home/pi/.ssh/id_rsa ~/.ssh/id_rsa
+    rsync -azhP pi:/home/pi/.ssh/id_rsa.pub ~/.ssh/id_rsa.pub
+fi
 echo 'Setting ZSH as default shell'
 chsh -s /usr/bin/zsh || exit 12
+echo 'Installing NetworkManager configs'
+sudo rsync -azhPRulc 
 echo 'Restarting shell'
 zsh -l || exit 6
