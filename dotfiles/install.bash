@@ -39,7 +39,7 @@ fi;
 if [ "$NOPYTHON" != "1" ]; then
     echo 'Installing python 3.11'
     $HOME/.pyenv/bin/pyenv install 3.11.0 -vs || exit 8
-    pyenv global 3.11.0
+    $HOME/.pyenv/bin/pyenv global 3.11.0
     echo 'Installing pipx'
     $HOME/.pyenv/shims/python3 -m pip install --user pipx || exit 10
     echo 'Installing cli-utils via pipx'
