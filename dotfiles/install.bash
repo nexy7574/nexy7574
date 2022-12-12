@@ -47,7 +47,7 @@ if [ "$NOPYTHON" != "1" ]; then
 fi;
 if [ $NONVM != "1" ]; then
     echo 'Installing nvm'
-    wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash || exit 9
+    wget -O- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash || exit 9
 fi;
 echo 'Downloading zsh config'
 wget https://github.com/EEKIM10/EEKIM10/raw/master/dotfiles/.zshrc -qO ~/.zshrc || exit 2
