@@ -14,7 +14,7 @@ else
 fi
 
 
-echo 'Installing requirements'
+echo "Installing requirements using '$INSTALLER'"
 $INSTALLER git wget curl zsh rsync > /dev/null || exit 1
 echo 'Removing existing installations'
 rm -rf $HOME/.pyenv $HOME/.oh-my-zsh $HOME/.nvm
