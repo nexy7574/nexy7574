@@ -2,13 +2,15 @@
 cd /tmp
 
 if [ -f /usr/sbin/apt ]; then
-    INSTALLER='sudo -E apt install -y'
+    export INSTALLER='sudo -E apt install -y'
     BUILD_PACKAGES='build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev'
 elif [ -f /usr/sbin/pacman ]; then
-    INSTALLER='sudo -E pacman -Sq --noconfirm --needed'
+    export INSTALLER='sudo -E pacman -Sq --noconfirm --needed'
     BUILD_PACKAGES='base-devel openssl zlib xz tk'
 else
     echo 'Unknown package manager. Please refer to https://github.com/pyenv/pyenv/wiki#suggested-build-environment.' > /dev/stderr
+    export INSTALLER=""
+    export BUILD_PACKAGES=""
     export NOBUILD="1"
     export NOPYTHON="1"
 fi
