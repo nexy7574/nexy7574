@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 cd /tmp
 
-if [ -f /usr/sbin/apt ]; then
+if [ -f /usr/bin/apt ]; then
     export INSTALLER='sudo -E apt install -y'
     BUILD_PACKAGES='build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev'
-elif [ -f /usr/sbin/pacman ]; then
+elif [ -f /usr/bin/pacman ]; then
     export INSTALLER='sudo -E pacman -Sq --noconfirm --needed'
     BUILD_PACKAGES='base-devel openssl zlib xz tk'
 else
