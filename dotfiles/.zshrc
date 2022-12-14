@@ -1,3 +1,4 @@
+alias vim=nvim
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$HOME/.local/bin:$PYENV_ROOT/bin:$PATH"
 export ZSH="$HOME/.oh-my-zsh"
@@ -21,3 +22,4 @@ autoload -U bashcompinit
 bashcompinit
 eval "$(register-python-argcomplete pipx)"
 source /usr/share/nvm/init-nvm.sh
+fpath=(~/.zsh.d/ $fpath)

@@ -61,7 +61,10 @@ if [ $? -eq 0 ]; then
 fi
 echo 'Setting ZSH as default shell'
 chsh -s /usr/bin/zsh || exit 12
-echo 'Installing NetworkManager configs'
-sudo rsync -azhPRulc 
+# echo 'Installing NetworkManager configs'
+# sudo rsync -azhPRulc
+echo 'Adding cheat.sh things'
+mkdir ~/.zsh.d
+curl https://cheat.sh/:zsh > ~/.zsh.d/_cht && echo 'fpath=(~/.zsh.d/ $fpath)' >> ~/.zshrc
 echo 'Restarting shell'
 zsh -l || exit 6
