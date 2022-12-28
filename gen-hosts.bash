@@ -23,6 +23,7 @@ BLOCK=(
     'app-measurement.com'
     'firebaselogging-pa.googleapis.com'
     'confection-status.netlify.app'
+    'copilot-telemetry.githubusercontent.com'
 )
 
 for i in $(seq 0 100); do
