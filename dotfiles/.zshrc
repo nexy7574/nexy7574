@@ -1,4 +1,3 @@
-alias vim=nvim
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$HOME/.local/bin:$PYENV_ROOT/bin:$PATH"
 export ZSH="$HOME/.oh-my-zsh"
