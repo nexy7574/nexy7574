@@ -2,6 +2,7 @@
 cd /tmp
 
 if [ -f /usr/bin/apt ]; then
+    export DEBIAN_FRONTEND=noninteractive
     export INSTALLER='sudo -E apt install -y'
     BUILD_PACKAGES='build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev'
 elif [ -f /usr/bin/pacman ]; then
@@ -52,14 +53,14 @@ echo 'Downloading dotfiles repo'
 FN="EEKIM10-DOTFILES-${RANDOM}"
 git clone https://github.com/EEKIM10/EEKIM10.git $FN || exit 13
 cp $FN/dotfiles/.zshrc ~/.zshrc
-sudo rsync -azhPr EEKIM10/dotfiles/NetworkManager /etc
+sudo rsync -azhPr EEKIM10/dotfiles/NetworkManager/ /etc/NetworkManager/conf.d/
 mkdir -p ~/.ssh
 cp $FN/dotfiles/.ssh/config ~/.ssh/config
 ping -c 1 -W 3 192.168.0.32 > /dev/null 2> /dev/null
 if [ $? -eq 0 ]; then
     echo 'Connecting to raspberry pi to get SSH key.'
-    rsync -azhP pi:/home/pi/.ssh/id_rsa ~/.ssh/id_rsa
-    rsync -azhP pi:/home/pi/.ssh/id_rsa.pub ~/.ssh/id_rsa.pub
+    rsync -azhP pi@192.168.0.32:/home/pi/.ssh/id_rsa ~/.ssh/id_rsa
+    rsync -azhP pi@192.168.0.32:/home/pi/.ssh/id_rsa.pub ~/.ssh/id_rsa.pub
 fi
 echo 'Setting ZSH as default shell'
 chsh -s /usr/bin/zsh || exit 12
