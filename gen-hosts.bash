@@ -24,15 +24,30 @@ BLOCK=(
     'firebaselogging-pa.googleapis.com'
     'confection-status.netlify.app'
     'copilot-telemetry.githubusercontent.com'
+    'log.tailscale.io'
+    'web-analytics.smile.io'
+    'logging.je-apps.com'
+    'logging-app.pe-prod.je-labs.com'
+    'web-analytics.smile.io'
+    'analytics.dots-services.com'
 )
 
-for i in $(seq 0 100); do
-    # echo "Adding region $i of app-measurement.com" > /dev/stderr
-    BLOCK+=("region$i.app-measurement.com")
+for file in ./hosts.d/*; do
+    BLOCK+=("#")
+    BLOCK+=("# $file")
+    while IFS= read -r line
+    do
+        BLOCK+=("$line")
+    done < "$file"
 done
 
 for domain in "${BLOCK[@]}"; do
-    echo "0.0.0.0 $domain"
+    if [[ $domain == \#* ]]; then
+        echo "$domain"
+    else
+        echo "0.0.0.0 $domain"
+    fi
+    
 done
 
 echo
