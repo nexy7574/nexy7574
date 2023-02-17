@@ -1,0 +1,10 @@
+[user]
+	name = nex
+	email = me@nexy7574.co.uk
+	signingkey = 94AC869CCB86EE65CB71552DF02CB686724AECC6
+[color]
+	ui = always
+[pull]
+	rebase = false
+[commit]
+	gpgsign = true
