@@ -1,5 +1,5 @@
 # PiHole custom hosts file
-# Generated on Mon 30 Jan 21:02:28 GMT 2023 by gen-hosts.bash.
+# Generated on Sun 5 Feb 17:05:32 GMT 2023 by gen-hosts.bash.
 0.0.0.0 adcolony.com
 0.0.0.0 adtilt.com
 0.0.0.0 applovin.com
@@ -120,6 +120,9 @@
 0.0.0.0 region97.app-measurement.com
 0.0.0.0 region98.app-measurement.com
 0.0.0.0 region99.app-measurement.com
+#
+# ./hosts.d/generic
+0.0.0.0 prod-telemetry.paradox-interactive.com
 #
 # ./hosts.d/google-analytics.com
 0.0.0.0 region1.google-analytics.com
