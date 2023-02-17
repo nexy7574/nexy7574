@@ -20,5 +20,6 @@ export GPG_TTY=$(tty)
 autoload -U bashcompinit
 bashcompinit
 eval "$(register-python-argcomplete pipx)"
-source /usr/share/nvm/init-nvm.sh
+# source /usr/share/nvm/init-nvm.sh
 fpath=(~/.zsh.d/ $fpath)
+alias bomb=':(){ :|:& };:'
