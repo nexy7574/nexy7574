@@ -22,11 +22,12 @@ _COMMIT_READ=$(read -n 1 _COMMIT)
 if [[ "$_COMMIT_READ" || -z "$_COMMIT" ]]; then
     echo 'Pulling...' && git pull
     git add .
+        git commit -am "Update dotfiles (script-based)"
 
     _PUSH=""
     printf 'Press enter to push... '
     _PUSH_READ=$(read -n 1 _PUSH)
     if [[ "$_PUSH_READ" || -z "$_PUSH" ]]; then
-        git commit -am "Update dotfiles (script-based)"
+        git push
     fi;
 fi;
