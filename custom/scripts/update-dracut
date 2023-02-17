@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 KERNEL_VERSION=$(uname -r)
 COMMAND="/usr/bin/dracut --force --hostonly --no-hostonly-cmdline /usr/lib/modules/${KERNEL_VERSION}/initrd ${KERNEL_VERSION}"
-echo "Executing: ${COMMAND}"
-$(COMMAND)
+echo "Generating regular boot image:  ${COMMAND}" > /dev/stderr
+eval sudo "$COMMAND"
+echo "Command exited with code $?." > /dev/stderr
+
+echo
+echo
+
+COMMAND="/usr/bin/dracut --force --hostonly /boot/initramfs-linux-fallback.img ${KERNEL_VERSION}"
+echo "Generating fallback initramfs:  ${COMMAND}" > /dev/stderr
+eval sudo "$COMMAND"
+echo "Command exited with code $?." > /dev/stderr
