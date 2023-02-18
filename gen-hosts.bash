@@ -24,7 +24,6 @@ BLOCK=(
     'firebaselogging-pa.googleapis.com'
     'confection-status.netlify.app'
     'copilot-telemetry.githubusercontent.com'
-    'log.tailscale.io'
     'web-analytics.smile.io'
     'logging.je-apps.com'
     'logging-app.pe-prod.je-labs.com'
