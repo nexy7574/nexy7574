@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+GIT_BRANCH_NAME="$(basename "$(git rev-parse --show-toplevel)")"
+REMOVE_DIR=''
+if [[ ! "$GIT_BRANCH_NAME" || "$GIT_BRANCH_NAME" != 'EEKIM10' ]]; then
+    git clone git@github.com:EEKIM10/EEKIM10 /tmp/EEKIM10 || (rm -rf /tmp/EEKIM10 && exit $?)
+    cd /tmp/EEKIM10 || exit 1
+    REMOVE_DIR=/tmp/EEKIM10
+fi;
+if [[ $(basename "$(pwd)") != "dotfiles" ]]; then
+    echo 'Changing to or making directory "dotfiles".'
+    cd dotfiles || mkdir -p dotfiles
+fi;
+
+rsync -ap "$HOME/.zshrc" .
+rsync -ap "$HOME/.zprofile" .
+rsync -ap "$HOME/.gitconfig" .
+rsync -ap "$HOME/.wgetrc" .
+rsync -avhP /etc/NetworkManager/NetworkManager.conf ./NetworkManager/
+rsync -avhP /etc/NetworkManager/conf.d ./NetworkManager/
+rsync -avhP "$HOME/.local/bin/custom/" ./scripts/
+cd ..
+_COMMIT=""
+printf 'Press enter to commit & push... '
+_COMMIT_READ=$(read -n 1 _COMMIT)
+if [[ "$_COMMIT_READ" || -z "$_COMMIT" ]]; then
+    echo 'Pulling...' && git pull
+    git add .
+        git commit -am "Update dotfiles (script-based)"
+
+    _PUSH=""
+    printf 'Press enter to push... '
+    _PUSH_READ=$(read -n 1 _PUSH)
+    if [[ "$_PUSH_READ" || -z "$_PUSH" ]]; then
+        git push
+    fi;
+fi;
+
+if [[ -n "$REMOVE_DIR" ]]; then
+    rm -rfv "$REMOVE_DIR" | while read -r line; do
+        printf "Removing: %s\33[2K\r" "$line"
+    done;
+    echo
+fi;
