@@ -35,8 +35,8 @@ if [[ "$_COMMIT_READ" || -z "$_COMMIT" ]]; then
 fi;
 
 if [[ -n "$REMOVE_DIR" ]]; then
-    for line in $(rm -rfv $REMOVE_DIR &>$1); do
-        printf "$line\r"
-    fi;
+    for line in $(rm -rfv $REMOVE_DIR &>"$1"); do
+        printf "%s\r" "$line"
+    done;
     echo
 fi;
