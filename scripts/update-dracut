@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-KERNEL_VERSION=$(uname -r)
-COMMAND="/usr/bin/dracut --force --hostonly --no-hostonly-cmdline /usr/lib/modules/${KERNEL_VERSION}/initrd ${KERNEL_VERSION}"
-echo "Executing: ${COMMAND}"
-$(COMMAND)

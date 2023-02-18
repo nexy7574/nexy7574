@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-UA='Mozilla/5.0 (X11; Linux x86_64; rv:108.0) Gecko/20100101 Firefox/108.0'
-wget2 -mkpEHU "$UA" -t 30 -T 30 "$@"
