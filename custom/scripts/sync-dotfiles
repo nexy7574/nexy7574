@@ -35,5 +35,5 @@ if [[ "$_COMMIT_READ" || -z "$_COMMIT" ]]; then
 fi;
 
 if [[ -n "$REMOVE_DIR" ]]; then
-    rm -rf $REMOVE_DIR
+    rm -rfv $REMOVE_DIR
 fi;
