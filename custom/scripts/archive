@@ -1,3 +1,21 @@
 #!/usr/bin/env bash
 UA='Mozilla/5.0 (X11; Linux x86_64; rv:108.0) Gecko/20100101 Firefox/108.0'
-wget2 -mkpEHU "$UA" -t 30 -T 30 "$@"
+
+if [[ -f $HOME/.archiverc ]]; then
+    source $HOME/.archiverc
+    echo 'Loaded ~/.archiverc'
+fi
+
+if [[ -z $ARCHIVE_COMMAND ]]; then
+    if ! command -v wget2 &> /dev/null
+    then
+        echo "wget2 is not installed - falling back to wget" > /dev/stderr
+        ARCHIVE_COMMAND=wget
+    else
+        echo "using wget2" > /dev/stderr
+        ARCHIVE_COMMAND=wget2
+    fi
+fi
+
+echo "Executing $ARCHIVE_COMMAND $ARCHIVE_EXTRA_FLAGS $@" > /dev/stderr
+exec "$ARCHIVE_COMMAND" -np -rLkpEHU "$UA" -t 30 -T 30 $ARCHIVE_EXTRA_FLAGS "$@"
