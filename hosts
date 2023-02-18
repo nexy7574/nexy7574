@@ -1,5 +1,5 @@
 # PiHole custom hosts file
-# Generated on Sun 5 Feb 17:05:32 GMT 2023 by gen-hosts.bash.
+# Generated on Sat 18 Feb 21:55:07 GMT 2023 by gen-hosts.bash.
 0.0.0.0 adcolony.com
 0.0.0.0 adtilt.com
 0.0.0.0 applovin.com
@@ -21,7 +21,6 @@
 0.0.0.0 firebaselogging-pa.googleapis.com
 0.0.0.0 confection-status.netlify.app
 0.0.0.0 copilot-telemetry.githubusercontent.com
-0.0.0.0 log.tailscale.io
 0.0.0.0 web-analytics.smile.io
 0.0.0.0 logging.je-apps.com
 0.0.0.0 logging-app.pe-prod.je-labs.com

@@ -37,8 +37,8 @@ if [ "$NOBUILD" !=  "1" ]; then
 fi;
 if [ "$NOPYTHON" != "1" ]; then
     echo 'Installing python 3.11'
-    $HOME/.pyenv/bin/pyenv install 3.11.0 -vs || exit 8
-    $HOME/.pyenv/bin/pyenv global 3.11.0
+    $HOME/.pyenv/bin/pyenv install 3.11 -vs || exit 8
+    $HOME/.pyenv/bin/pyenv global 3.11
     echo 'Installing pipx'
     $HOME/.pyenv/shims/python3 -m pip install --user pipx || exit 10
     echo 'Installing cli-utils via pipx'
@@ -49,14 +49,14 @@ if [ "$NONVM" != "1" ]; then
     wget -O- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash || exit 9
 fi;
 echo 'Downloading dotfiles repo'
-# wget https://github.com/EEKIM10/EEKIM10/raw/master/dotfiles/.zshrc -qO ~/.zshrc || exit 2
 FN="EEKIM10-DOTFILES-${RANDOM}"
 git clone https://github.com/EEKIM10/EEKIM10.git $FN || exit 13
-cp $FN/dotfiles/.zshrc ~/.zshrc
+# cp $FN/dotfiles/.zshrc ~/.zshrc
+rsync -azhP $FN/dotfiles/.* ~/
 sudo rsync -azhPr EEKIM10/dotfiles/NetworkManager/ /etc/NetworkManager/conf.d/
 mkdir -p ~/.ssh
 cp $FN/dotfiles/.ssh/config ~/.ssh/config
-ping -c 1 -W 3 192.168.0.32 > /dev/null 2> /dev/null
+ping -c 1 -W 3 192.168.0.32 &> /dev/null
 if [ $? -eq 0 ]; then
     echo 'Connecting to raspberry pi to get SSH key.'
     rsync -azhP pi@192.168.0.32:/home/pi/.ssh/id_rsa ~/.ssh/id_rsa
