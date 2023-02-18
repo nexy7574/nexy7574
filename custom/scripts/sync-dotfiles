@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 GIT_BRANCH_NAME="$(basename "$(git rev-parse --show-toplevel)")"
+REMOVE_DIR=''
 if [[ ! "$GIT_BRANCH_NAME" || "$GIT_BRANCH_NAME" != 'EEKIM10' ]]; then
     git clone git@github.com:EEKIM10/EEKIM10 /tmp/EEKIM10 || (rm -rf /tmp/EEKIM10 && exit $?)
     cd /tmp/EEKIM10 || exit 1
+    REMOVE_DIR=/tmp/EEKIM10
 fi;
 if [[ $(basename "$(pwd)") != "custom" ]]; then
     cd custom || mkdir -p custom
@@ -30,4 +32,8 @@ if [[ "$_COMMIT_READ" || -z "$_COMMIT" ]]; then
     if [[ "$_PUSH_READ" || -z "$_PUSH" ]]; then
         git push
     fi;
+fi;
+
+if [[ -n "$REMOVE_DIR" ]]; then
+    rm -rf $REMOVE_DIR
 fi;
