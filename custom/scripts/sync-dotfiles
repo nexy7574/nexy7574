@@ -36,7 +36,7 @@ fi;
 
 if [[ -n "$REMOVE_DIR" ]]; then
     rm -rfv "$REMOVE_DIR" | while read -r line; do
-        printf "%s\r" "$line"
+        printf "Removing: %s\33[2K\r" "$line"
     done;
     echo
 fi;
