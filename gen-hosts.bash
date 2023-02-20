@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 echo '# PiHole custom hosts file'
-echo '# Generated on' $(date) 'by gen-hosts.bash.'
+echo '# Generated on' $(date) 'by gen-hosts.bash by' $(whoami) '@' $(hostname) 'using' $($SHELL --version | head -n 1) '.'
 
 BLOCK=(
     'adcolony.com'
