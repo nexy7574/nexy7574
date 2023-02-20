@@ -15,6 +15,7 @@ rsync -ap "$HOME/.zshrc" .
 rsync -ap "$HOME/.zprofile" .
 rsync -ap "$HOME/.gitconfig" .
 rsync -ap "$HOME/.wgetrc" .
+rsync -ap "$HOME/.vimrc" .
 rsync -avhP /etc/NetworkManager/NetworkManager.conf ./NetworkManager/
 rsync -avhP /etc/NetworkManager/conf.d ./NetworkManager/
 rsync -avhP "$HOME/.local/bin/custom/" ./scripts/
