@@ -1,0 +1,75 @@
+#!/usr/bin/env python
+import subprocess
+import re
+import shlex
+import signal
+import os
+import click
+import sys
+
+@click.command()
+@click.option("--start/--stop", help="Whether to start or stop tunneling", default=True)
+@click.option("--restart", "-R", help="Stops any existing tunnels before starting a new one.", is_flag=True)
+@click.option("--ssh-options", "-S", default="", help="Any extra options to pass to ssh")
+@click.argument("host", default="pi-ext")
+def main(start: bool, restart: bool, ssh_options: str, host: str):
+    stop = not start
+    ssh_options = shlex.split(ssh_options)
+    existing_ssh_conn = subprocess.run(
+        (
+            "lsof",
+            "-P",
+            "-i",
+            "TCP:1313",
+            "-s",
+            "TCP:LISTEN"
+        ),
+        capture_output=True,
+        encoding="utf-8"
+    )
+    if existing_ssh_conn.returncode == 0:
+        if start:
+            print("An SSH tunnel may already be open.")
+        PIDs = []
+        for line in existing_ssh_conn.stdout.splitlines():
+            _match = re.match(r"ssh\s*(\d+)\s*([^ /]{1,32})\s*\w+\s*(IPv\d)", line)
+            if _match is not None:
+                PIDs.append(_match.group(1))
+                print("PID: %s, User: %s, Protocol: %s" % _match.groups())
+        if restart or stop:
+            print("Killing any processes")
+            for pid in PIDs:
+                print("Killing", pid, end="...")
+                try:
+                    os.kill(int(pid), signal.SIGTERM)
+                except (OSError, PermissionError) as e:
+                    print(f"failed ({e})")
+                    sys.exit(1)
+                else:
+                    print("ok")
+            if stop:
+                sys.exit()
+        else:
+            sys.exit(1)
+
+    print("Starting socks5 proxy on socks5://localhost:1313... ", end="")
+
+    ssh_cmd = (
+        "ssh",
+        "-D",
+        "1313",
+        "-fCqN",
+        *ssh_options,
+        host
+    )
+    ssh_cmd = tuple(filter(lambda e: e != "", ssh_cmd))
+    try:
+        subprocess.run(ssh_cmd, check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Failed ({e})")
+        sys.exit(1)
+    print("Success.")
+
+
+if __name__ == "__main__":
+    main()
