@@ -25,6 +25,8 @@ echo 'Installing oh-my-zsh'
 export RUNZSH=no
 export CHSH=no
 sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -qO -)" || exit 3
+mkdir -p $HOME/.oh-my-zsh/custom/themes
+wget https://github.com/EEKIM10/EEKIM10/blob/master/dotfiles/.vimrc -qO $HOME/.oh-my-zsh/custom/themes/nexytech.zsh-theme || exit 69
 echo 'Installing zsh-autosuggestions'
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting > /dev/null || exit 4
 echo 'Installing zsh-autosuggestions'

@@ -6,12 +6,29 @@ import signal
 import os
 import click
 import sys
+from pathlib import Path
+
+import notify2
+notify2.init("SSH Socks")
+
+
+def send_notification(title: str, message: str):
+    n = notify2.Notification(title, message)
+    n.show()
+    return n
+
+
+if (p:=Path.home() / ".cache" / "sshsocks_python_last_host").exists():
+    last_host = p.read_text().strip()
+else:
+    last_host = "pi-ext"
+
 
 @click.command()
 @click.option("--start/--stop", help="Whether to start or stop tunneling", default=True)
 @click.option("--restart", "-R", help="Stops any existing tunnels before starting a new one.", is_flag=True)
 @click.option("--ssh-options", "-S", default="", help="Any extra options to pass to ssh")
-@click.argument("host", default="pi-ext")
+@click.argument("host", default=last_host)
 def main(start: bool, restart: bool, ssh_options: str, host: str):
     stop = not start
     ssh_options = shlex.split(ssh_options)
@@ -37,21 +54,65 @@ def main(start: bool, restart: bool, ssh_options: str, host: str):
                 PIDs.append(_match.group(1))
                 print("PID: %s, User: %s, Protocol: %s" % _match.groups())
         if restart or stop:
+            _n = send_notification("Connection status", "Killing existing tunnels%s..." % (" before starting another" if restart and not stop else ""))
             print("Killing any processes")
             for pid in PIDs:
                 print("Killing", pid, end="...")
                 try:
                     os.kill(int(pid), signal.SIGTERM)
                 except (OSError, PermissionError) as e:
+                    _n.close()
+                    _n.update("Connection status", "Failed to kill existing tunnels.")
+                    _n.show()
                     print(f"failed ({e})")
                     sys.exit(1)
                 else:
                     print("ok")
+            _set = [
+                subprocess.run(
+                    (
+                        "kwriteconfig5",
+                        "--file",
+                        "kioslaverc",
+                        "--group",
+                        "Proxy Settings",
+                        "--key",
+                        "ProxyType",
+                        "0"
+                    )
+                ),
+                subprocess.run(
+                    (
+                        "kwriteconfig5",
+                        "--file",
+                        "kioslaverc",
+                        "--group",
+                        "Proxy Settings",
+                        "--key",
+                        "socksProxy",
+                        ""
+                    )
+                )
+            ]
+            body = "Killed existing tunnels."
+            if all(x.returncode == 0 for x in _set):
+                body += "\nKDE proxy settings updated."
+            _n.update("Connection status", body)
             if stop:
                 sys.exit()
         else:
             sys.exit(1)
+    
+    if stop:
+        print("No existing tunnels found.")
+        sys.exit()
+    
+    try:
+        _n.close()
+    except NameError:
+        pass
 
+    _n = send_notification("Connection status", "Connecting to %s..." % host)
     print("Starting socks5 proxy on socks5://localhost:1313... ", end="")
 
     ssh_cmd = (
@@ -68,7 +129,41 @@ def main(start: bool, restart: bool, ssh_options: str, host: str):
     except subprocess.CalledProcessError as e:
         print(f"Failed ({e})")
         sys.exit(1)
+    _set = [
+        subprocess.run(
+            (
+                "kwriteconfig5",
+                "--file",
+                "kioslaverc",
+                "--group",
+                "Proxy Settings",
+                "--key",
+                "ProxyType",
+                "1"
+            )
+        ),
+        subprocess.run(
+            (
+                "kwriteconfig5",
+                "--file",
+                "kioslaverc",
+                "--group",
+                "Proxy Settings",
+                "--key",
+                "socksProxy",
+                "socks5://localhost:1313"
+            )
+        )
+    ]
     print("Success.")
+    body = "Connected to {0}. Local host: {1}:{2} (socks5://{1}:{2})".format(host, "localhost", 1313)
+    if all(x.returncode == 0 for x in _set):
+        body += "\nKDE proxy settings updated."
+    _n.update("Connection status", body)
+    _n.show()
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.touch()
+    p.write_text(host)
 
 
 if __name__ == "__main__":

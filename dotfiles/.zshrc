@@ -2,7 +2,7 @@ mkdir -p $HOME/.local/bin/custom
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$HOME/.local/bin/custom:$HOME/.local/bin:$PYENV_ROOT/bin:$PATH"
 export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="nanotech"
+ZSH_THEME="nexytech"
 COMPLETION_WAITING_DOTS="true"
 HIST_STAMPS="dd.mm.yyyy"
 plugins=(git nvm sudo command-not-found python rsync themes zsh-syntax-highlighting zsh-autosuggestions)
