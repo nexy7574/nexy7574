@@ -11,14 +11,15 @@ if [[ $(basename "$(pwd)") != "dotfiles" ]]; then
     cd dotfiles || mkdir -p dotfiles
 fi;
 
-rsync -ap "$HOME/.zshrc" .
-rsync -ap "$HOME/.zprofile" .
-rsync -ap "$HOME/.gitconfig" .
-rsync -ap "$HOME/.wgetrc" .
-rsync -ap "$HOME/.vimrc" .
-rsync -avhP /etc/NetworkManager/NetworkManager.conf ./NetworkManager/
-rsync -avhP /etc/NetworkManager/conf.d ./NetworkManager/
-rsync -avhP "$HOME/.local/bin/custom/" ./scripts/
+rsync -aup "$HOME/.zshrc" .
+rsync -aup "$HOME/.zprofile" .
+rsync -aup "$HOME/.gitconfig" .
+rsync -aup "$HOME/.wgetrc" .
+rsync -aup "$HOME/.vimrc" .
+rsync -aup "$HOME/.ssh/config" ./ssh/config
+rsync -auvhP /etc/NetworkManager/NetworkManager.conf ./NetworkManager/
+rsync -auvhP /etc/NetworkManager/conf.d ./NetworkManager/
+rsync -auvhP "$HOME/.local/bin/custom/" ./scripts/
 cd ..
 _COMMIT=""
 printf 'Press enter to commit & push... '
