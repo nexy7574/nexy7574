@@ -5,7 +5,7 @@ function box_name {
 }
 # ^ stolen from https://github.com/ohmyzsh/ohmyzsh/blob/master/themes/fino-time.zsh-theme
 
-PROMPT='%F{white}%2c%(?:%{$fg[green]%} [ :%{$fg[red]%} [ )'
+PROMPT='%F{white}%2c%(?:%{$fg[green]%} [ :%{$fg[red]%} [ )%{$reset_color%}'
 
 RPROMPT='$(git_prompt_info) %(?:%{$fg[green]%} ]:%{$fg[red]%} ]) %F{green}%D{%L:%M} %F{yellow}%D{%p}%f %F{grey}$(box_name)%f'
 
