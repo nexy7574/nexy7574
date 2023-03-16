@@ -73,7 +73,7 @@ eval "$(register-python-argcomplete pipx)"
 alias bomb=printf "%s" ':t(){ :|:& };:'
 
 # Rootless docker
-if [ -f "$XDG_RUNTIME_DIR/docker.sock"] then
+if [ -f "$XDG_RUNTIME_DIR/docker.sock" ]; then
   export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/docker.sock"
 fi
 
