@@ -71,3 +71,9 @@ eval "$(register-python-argcomplete pipx)"
 # Fun little command to auto-type bash bomb
 # alias bomb='kdesu -d --noignorebutton -n bash -c ":t(){ :|:& };:"'
 alias bomb=printf "%s" ':t(){ :|:& };:'
+
+# Rootless docker
+if [ -f "$XDG_RUNTIME_DIR/docker.sock"] then
+  export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/docker.sock"
+fi
+

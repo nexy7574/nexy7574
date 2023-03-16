@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+# This script is designed to clone dotfiles only. This does not install any of the dependencies for it.
+printf 'Downloading dotfiles repo... '
+
+TARGET="/tmp/EEKIM10-DOTFILES-${RANDOM}"
+git clone https://github.com/EEKIM10/EEKIM10.git $TARGET 2>/dev/null >/dev/null
+printf 'done.\n'
+
+cd "$TARGET/dotfiles"
+
+EXCLUDE=(
+    'install.bash',
+    'nexytech.zsh-theme'
+)
+
+printf 'Moving dotfiles:\n'
+for file in $(find . -iname '.*' -type 'f'); do
+    if [[ ! " ${EXCLUDE[@]} " =~ " ${file} " ]]; then
+        file=${file:2}
+        printf '%s -> %s: moving\b\b\b\b\b\b ' "$file" "$HOME/$file"
+        if ! mv "$file" "$HOME/$file"; then
+            printf 'failed.\n'
+        else
+            printf 'done.\n'
+        fi
+    fi
+done
+
+printf 'Moving zsh theme... '
+_cp=$(cp nexytech.zsh-theme "$HOME/.oh-my-zsh/custom/themes/nexytech.zsh-theme" 2> /dev/null)
+if [ ! _cp ]; then
+    printf 'failed (is oh-my-/ZSH installed?)\n'
+else
+    printf 'done.\n'
+fi;
+
+printf 'Moving ssh config... '
+mkdir -p "$HOME/.ssh"
+cp .ssh/config "$HOME/.ssh/config"
+printf 'done.\n'
+
+if [ -d '/etc/NetworkManager' ]; then
+    printf 'Moving NetworkManager config... '
+    sudo cp NetworkManager/NetworkManager.conf /etc/NetworkManager/NetworkManager.conf
+    sudo cp -r NetworkManager/ /etc/NetworkManager/conf.d/
+    printf 'done.\n'
+else
+    printf 'NetworkManager not found. Skipping syncing NM config.\n'
+fi
+
+printf 'Copying custom scripts to %s...' "$HOME/.local/bin/custom/"
+mkdir -p "$HOME/.local/bin/custom/"
+cp -r scripts/* "$HOME/.local/bin/custom/"
+printf 'done.\n'

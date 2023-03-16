@@ -8,3 +8,5 @@
 	rebase = false
 [commit]
 	gpgsign = true
+[init]
+	defaultBranch = master
