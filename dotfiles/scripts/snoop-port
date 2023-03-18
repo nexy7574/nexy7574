@@ -1,0 +1,86 @@
+#!/usr/bin/env python3
+import socket
+import click
+import os
+import sys
+
+
+class SocketServerWrapper:
+    def __init__(self):
+        self.server = None
+
+    def __enter__(self):
+        self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        return self.server
+
+    def __exit__(self, *_):
+        self.server.close()
+
+
+@click.command()
+@click.option("--host", "-H", help="The IP to bind to.", default="0.0.0.0")
+@click.option(
+    "--chunk",
+    "-C",
+    type=int,
+    help="The chunk size to read.",
+    default=1024
+)
+@click.option(
+    "--ack", "-A", help="Sends back 256 random bytes as an ack.", is_flag=True
+)
+@click.argument("port", type=int)
+def main(host: str, chunk: int, ack: bool, port: int):
+    if port < 1024 and os.name != "nt" and os.getuid() != 0:
+        click.echo("You cannot use ports <1024 unless you're root")
+        raise click.Abort
+
+    with SocketServerWrapper() as server_socket:
+        server_socket.bind((host, port))
+
+        server_socket.listen(1)
+        click.clear()
+        click.echo(
+            'Listening on port ' + click.style(
+                '{}:{!s}'.format(host, port), fg="cyan"
+            )
+        )
+
+        click.echo('Waiting for incoming connection...')
+
+        EXIT = False
+
+        while EXIT is False:
+            try:
+                client_socket, addr = server_socket.accept()
+            except (KeyboardInterrupt, EOFError) as e:
+                click.echo(e)
+                EXIT = True
+                break
+            click.echo()
+            click.secho(f'Connected: {":".join(map(str, addr))}', fg="green")
+
+            while True:
+                try:
+                    data = client_socket.recv(chunk)
+                except (KeyboardInterrupt, EOFError) as e:
+                    click.echo(e)
+                    EXIT = True
+                    break
+                if not data:
+                    break
+                click.echo("|" + data.decode())
+                if ack:
+                    client_socket.send(os.urandom(64))
+                    click.secho(
+                        f'| Sent back 64 urandom bytes.', dim=True
+                    )
+
+            # close the connection
+            client_socket.close()
+            click.secho(f'Disconnected: {":".join(map(str, addr))}', fg="red")
+            click.echo()
+
+
+if __name__ == "__main__":
+    main()
