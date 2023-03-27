@@ -39,7 +39,9 @@ plugins=(
   themes
   zsh-syntax-highlighting
   zsh-autosuggestions
+#  thefuck    
 )
+# ^ TheFuck plugin breaks `sudo`. See https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/thefuck#notes
 # Extend fpath for custom plugins zsh-syntax-highlighting and zsh-autosuggestions
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
