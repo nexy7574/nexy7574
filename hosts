@@ -1,5 +1,13 @@
-# PiHole custom hosts file
-# Generated on Mon 20 Feb 18:26:17 GMT 2023 by gen-hosts.bash by nex @ Mike-Oxlongs-Laptop using zsh 5.9 (x86_64-pc-linux-gnu) .
+# nexy7574 host blocklist generator
+# Generation details:
+# | At: Thu Apr 13 18:30:25 2023 UTC
+# | By: nex @ Mike-Oxlongs-Laptop on Linux-6.2.10-arch1-1-x86_64-with-glibc2.37
+# | With: gen-hosts.py -C
+
+# From: hosts.d/google-analytics.com
+0.0.0.0 region1.google-analytics.com
+
+# From: hosts.d/old
 0.0.0.0 adcolony.com
 0.0.0.0 adtilt.com
 0.0.0.0 applovin.com
@@ -24,10 +32,12 @@
 0.0.0.0 web-analytics.smile.io
 0.0.0.0 logging.je-apps.com
 0.0.0.0 logging-app.pe-prod.je-labs.com
-0.0.0.0 web-analytics.smile.io
 0.0.0.0 analytics.dots-services.com
-#
-# ./hosts.d/app-measurement.com
+
+# From: hosts.d/generic
+0.0.0.0 prod-telemetry.paradox-interactive.com
+
+# From: hosts.d/app-measurement.com
 0.0.0.0 region1.app-measurement.com
 0.0.0.0 region10.app-measurement.com
 0.0.0.0 region11.app-measurement.com
@@ -119,14 +129,8 @@
 0.0.0.0 region97.app-measurement.com
 0.0.0.0 region98.app-measurement.com
 0.0.0.0 region99.app-measurement.com
-#
-# ./hosts.d/generic
-0.0.0.0 prod-telemetry.paradox-interactive.com
-#
-# ./hosts.d/google-analytics.com
-0.0.0.0 region1.google-analytics.com
-#
-# ./hosts.d/log_n-normal-useast1a.tiktokv.com
+
+# From: hosts.d/log_n-normal-useast1a.tiktokv.com
 0.0.0.0 log15-normal-useast1a.tiktokv.com
 0.0.0.0 log16-normal-useast1a.tiktokv.com
 0.0.0.0 log17-normal-useast1a.tiktokv.com
@@ -134,6 +138,3 @@
 0.0.0.0 log22-normal-useast1a.tiktokv.com
 0.0.0.0 log31-normal-useast1a.tiktokv.com
 0.0.0.0 log58-normal-useast1a.tiktokv.com
-
-# End of custom hosts file
-# If you can see this in your console, you need to export this output to a file.
