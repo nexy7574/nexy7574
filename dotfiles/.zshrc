@@ -49,7 +49,7 @@ fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 source $ZSH/oh-my-zsh.sh
 
 # Use vscode to edit files when not in SSH, otherwise VIM <333
-if [[ -n $SSH_CONNECTION ]]; then
+if [[ -z $SSH_CONNECTION ]]; then
   export EDITOR='code'
 else
   export EDITOR='vim'
