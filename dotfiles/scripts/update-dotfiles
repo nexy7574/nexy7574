@@ -13,18 +13,22 @@ EXCLUDE=(
     'nexytech.zsh-theme'
 )
 
-printf 'Moving dotfiles:\n'
-for file in $(find . -iname '.*' -type 'f'); do
-    if [[ ! " ${EXCLUDE[@]} " =~ " ${file} " ]]; then
-        file=${file:2}
-        printf '%s -> %s: moving\b\b\b\b\b\b ' "$file" "$HOME/$file"
-        if ! mv "$file" "$HOME/$file"; then
-            printf 'failed.\n'
-        else
-            printf 'done.\n'
+if [ ! $NO_DOTFILES ]; then
+    printf 'Moving dotfiles:\n'
+    for file in $(find . -iname '.*' -type 'f'); do
+        if [[ ! " ${EXCLUDE[@]} " =~ " ${file} " ]]; then
+            file=${file:2}
+            printf '%s -> %s: moving\b\b\b\b\b\b ' "$file" "$HOME/$file"
+            if ! mv "$file" "$HOME/$file"; then
+                printf 'failed.\n'
+            else
+                printf 'done.\n'
+            fi
         fi
-    fi
-done
+    done
+else 
+    printf 'Skipping dotfiles.\n'
+fi
 
 printf 'Moving zsh theme... '
 _cp=$(cp nexytech.zsh-theme "$HOME/.oh-my-zsh/custom/themes/nexytech.zsh-theme" 2> /dev/null)
@@ -34,12 +38,16 @@ else
     printf 'done.\n'
 fi;
 
-printf 'Moving ssh config... '
-mkdir -p "$HOME/.ssh"
-cp .ssh/config "$HOME/.ssh/config"
-printf 'done.\n'
+if [ ! NO_SSH ]; then
+    printf 'Moving ssh config... '
+    mkdir -p "$HOME/.ssh"
+    cp .ssh/config "$HOME/.ssh/config"
+    printf 'done.\n'
+else
+    printf 'Skipping ssh config.\n'
+fi
 
-if [ -d '/etc/NetworkManager' ]; then
+if [ -d '/etc/NetworkManager' && ! $NO_NM]; then
     printf 'Moving NetworkManager config... '
     sudo cp NetworkManager/NetworkManager.conf /etc/NetworkManager/NetworkManager.conf
     sudo cp -r NetworkManager/ /etc/NetworkManager/conf.d/
