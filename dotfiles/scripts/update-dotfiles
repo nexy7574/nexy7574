@@ -68,4 +68,5 @@ fi
 printf 'Copying custom scripts to %s...' "$HOME/.local/bin/custom/"
 mkdir -p "$HOME/.local/bin/custom/"
 cp -r scripts/* "$HOME/.local/bin/custom/"
+chmod -R +x "$HOME/.local/bin/custom"
 printf 'done.\n'
