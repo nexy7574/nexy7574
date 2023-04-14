@@ -14,7 +14,7 @@ class SocketServerWrapper:
         return self.server
 
     def __exit__(self, *_):
-        self.server.close()
+        self.server.close()  # type: ignore
 
 
 @click.command()
