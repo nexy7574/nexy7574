@@ -53,7 +53,7 @@ else
     printf 'Skipping ssh config.\n'
 fi
 
-if [ -d '/etc/NetworkManager' && ! $NO_NM ]; then
+if [[ -d '/etc/NetworkManager' && ! $NO_NM ]]; then
     printf 'Moving NetworkManager config... '
     if [ -f '/etc/NetworkManager/NetworkManager.conf' ]; then
         cp '/etc/NetworkManager/NetworkManager.conf' '/etc/NetworkManager/NetworkManager.conf.bak'
