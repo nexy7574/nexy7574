@@ -1,5 +1,6 @@
 #!/usr/bin/zsh
 
+printf 'Loading ZSH...\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b'
 # Make custom scripts directory if it doesn't exist
 mkdir -p $HOME/.local/bin/custom
 
@@ -31,15 +32,15 @@ HIST_STAMPS="dd.mm.yyyy"
 # Load plugins in priority order
 plugins=(
   sudo
-  git
-  nvm
+  ssh-agent
+  git  # git is basically exclusively a dependency
+  dotenv
   command-not-found
-  python
-  rsync
-  themes
-  zsh-syntax-highlighting
-  zsh-autosuggestions
-#  thefuck    
+  python  # basically only used for the pygrep, py, ipython, and pyserver commmands
+  rsync  # rsync-copy, rsync-move, rsync-update, rsync-synchronize
+  themes  # on-the-fly theming via the theme command
+  zsh-syntax-highlighting  # syntax highlighting <moderate impact on load time and CPU>
+  zsh-autosuggestions  # autosuggestions <heavy impact on load time>
 )
 # ^ TheFuck plugin breaks `sudo`. See https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/thefuck#notes
 # Extend fpath for custom plugins zsh-syntax-highlighting and zsh-autosuggestions
@@ -72,10 +73,12 @@ eval "$(register-python-argcomplete pipx)"
 
 # Fun little command to auto-type bash bomb
 # alias bomb='kdesu -d --noignorebutton -n bash -c ":t(){ :|:& };:"'
-alias bomb=printf "%s" ':t(){ :|:& };:'
+alias bomb=printf "%s\n" ':t(){ :|:& };:'
+# Had to alias it to just echoing the command because SOMEONE ruined it smh
 
 # Rootless docker
 if [ -f "$XDG_RUNTIME_DIR/docker.sock" ]; then
   export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/docker.sock"
 fi
 
+function gi() { curl -sLw "\n" https://www.toptal.com/developers/gitignore/api/$@ ;}
