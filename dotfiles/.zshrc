@@ -1,5 +1,6 @@
 #!/usr/bin/zsh
 
+zstyle :omz:plugins:ssh-agent quiet yes
 printf 'Loading ZSH...\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b'
 # Make custom scripts directory if it doesn't exist
 mkdir -p $HOME/.local/bin/custom
