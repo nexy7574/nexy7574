@@ -1,5 +1,6 @@
 #!/usr/bin/zsh
 
+zstyle :omz:plugins:ssh-agent quiet yes
 printf 'Loading ZSH...\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b'
 # Make custom scripts directory if it doesn't exist
 mkdir -p $HOME/.local/bin/custom
@@ -51,7 +52,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Use vscode to edit files when not in SSH, otherwise VIM <333
 if [[ -z $SSH_CONNECTION ]]; then
-  export EDITOR='code'
+  export EDITOR='code --wait'
 else
   export EDITOR='vim'
 fi
@@ -82,3 +83,4 @@ if [ -f "$XDG_RUNTIME_DIR/docker.sock" ]; then
 fi
 
 function gi() { curl -sLw "\n" https://www.toptal.com/developers/gitignore/api/$@ ;}
+alias spook="head -c 102400 /dev/urandom | aplay -r 384000 2>&1 >/dev/null;"

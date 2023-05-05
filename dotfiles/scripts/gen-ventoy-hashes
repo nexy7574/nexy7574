@@ -1,0 +1,76 @@
+#!/usr/bin/env python3
+# This script will create an SHA512sums file with every ISO found in a specific directory.
+# Used to combat Matthew.
+import datetime
+from os import read, write
+import click
+import re
+from pathlib import Path
+from hashlib import sha512
+from typing import TextIO
+
+
+def gen_hash(file: Path) -> sha512:
+    hash_func = sha512(usedforsecurity=False)
+    with file.open("rb") as fd:
+        for chunk in iter(lambda: fd.read(4096), b''):
+            hash_func.update(chunk)
+    return hash_func
+
+
+@click.command()
+@click.option("--hidden", "-H", help="Includes hidden & trash files.", is_flag=True, default=False)
+@click.option("output", "--output", "--out", "-O", type=click.Path(writable=True), default=None)
+@click.option("recurse", "-R", "--recursive", help="Forces recursion", is_flag=True, default=False)
+@click.argument(
+    "directory",
+    type=click.Path(exists=True, file_okay=False, dir_okay=True, readable=True)
+)
+@click.argument("glob", default="*.iso")
+def main(directory: str, glob: str, recurse: bool, output: str, hidden: bool):
+    """Simple CLI utility to generate sha512sums file"""
+    path = Path(directory).resolve()
+    if output is None:
+        output = path / "sha512sums"
+    else:
+        output = Path(output)
+        if output.is_dir():
+            output = output / "sha512sums"
+    click.echo("Scanning '%s' for files matching the glob %r." % (path, glob))
+
+    files = list(path.glob(glob) if recurse is False else path.rglob(glob))
+    click.echo("Will add the following files to SHA512SUMS:")
+    for file in files:
+        if not hidden:
+            if file.name.startswith(".") or re.search(r"Trash-\d+", str(file)):
+                files.remove(file)
+                continue
+        click.echo("\t* %s" % (click.style(str(file), fg="cyan")))
+    click.echo()
+    sums = {}
+    cur_file = files[0]
+    with click.progressbar(files, label="Hashing files...", show_pos=True, item_show_func=lambda *args: str(cur_file)) as bar:
+        for file in bar:
+            cur_file = file
+            hashed = gen_hash(file)
+            sums[file] = hashed
+    
+    click.echo("Creating sha512sums file...")
+    
+    lines = [
+        "# Generated %s using gen-ventoy-hashes with target %s and glob %r." % (
+            datetime.datetime.now().isoformat(),
+            path,
+            glob
+        )
+    ]
+    line_format = "%s  %s"
+    for file, sha in sums.items():
+        lines.append(line_format % (sha.hexdigest(), file.relative_to(path)))
+    
+    output.write("\n".join(lines))
+    click.secho("Generated sha512sums!", fg="green")
+
+
+if __name__ == "__main__":
+    main()
