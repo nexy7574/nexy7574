@@ -68,7 +68,7 @@ def main(directory: str, glob: str, recurse: bool, output: str, hidden: bool):
     for file, sha in sums.items():
         lines.append(line_format % (sha.hexdigest(), file.relative_to(path)))
     
-    output.write("\n".join(lines))
+    output.write_text("\n".join(lines))
     click.secho("Generated sha512sums!", fg="green")
 
 
