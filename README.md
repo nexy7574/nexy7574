@@ -1,7 +1,7 @@
 # Hi there 👋
 
 ## About me
-[Moved to my website](https://nexy7574.cyou/about)
+[Moved to my website](https://nexy7574.co.uk/about)
 
 ## Fancy image things
 
