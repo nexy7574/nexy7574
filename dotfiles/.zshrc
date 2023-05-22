@@ -2,6 +2,7 @@
 
 zstyle :omz:plugins:ssh-agent quiet yes
 printf 'Loading ZSH...\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b'
+export SUDO_PROMPT="$(tput bold setaf 7)[sudo]$(tput sgr0) $(tput setaf 6)password for$(tput sgr0) $(tput setaf 5)%p$(tput sgr0): "
 # Make custom scripts directory if it doesn't exist
 mkdir -p $HOME/.local/bin/custom
 
