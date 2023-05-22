@@ -24,6 +24,10 @@ else
   ZSH_THEME="nexytech"
 fi;
 
+if[ -f $HOME/.bash_aliases ]; then
+  source $HOME/.bash_aliases
+fi;
+
 # Enable completion dots, for slower machines
 COMPLETION_WAITING_DOTS="true"
 
@@ -74,13 +78,13 @@ eval "$(register-python-argcomplete pipx)"
 
 # Fun little command to auto-type bash bomb
 # alias bomb='kdesu -d --noignorebutton -n bash -c ":t(){ :|:& };:"'
-alias bomb=printf "%s\n" ':t(){ :|:& };:'
+alias bomb=printf ':t(){ :|:& };:\n'
 # Had to alias it to just echoing the command because SOMEONE ruined it smh
 
 # Rootless docker
-if [ -f "$XDG_RUNTIME_DIR/docker.sock" ]; then
-  export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/docker.sock"
-fi
+#if [ -f "$XDG_RUNTIME_DIR/docker.sock" ]; then
+#  export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/docker.sock"
+#fi
 
 function gi() { curl -sLw "\n" https://www.toptal.com/developers/gitignore/api/$@ ;}
 alias spook="head -c 102400 /dev/urandom | aplay -r 384000 2>&1 >/dev/null;"
