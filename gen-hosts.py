@@ -34,18 +34,34 @@ def download(client: httpx.Client, url: str) -> str:
         raise ValueError(f"Unknown scheme: {parsed.scheme}")
 
 
+class HostFile:
+    def __init__(self, comment: str = "#"):
+        self.buffer = ""
+        self.comment = comment
+    
+    def add_root_header(self):
+        lines = [
+            "Generated with: nexy7574's host blocklist (https://github.com/nexy7574/ne)"
+        ]
+
+
 def generate_generic_block(hosts: List[str], name: str) -> str:
     """Generates generic hosts file block."""
-    x = f"# From: {name}"
+    x = f"# From: {name}\n"
+    ipv4 = []
+    ipv6 = []
     for host in hosts:
-        x += "\n0.0.0.0 " + host
+        ipv4.append(f"0.0.0.0 {host}")
+        ipv6.append(f"::      {host}")
+    ip = [*ipv4, *ipv6]
+    x += "\n".join(ip)
     return x
 
 
 def generate_generic_hosts_file(hosts: Dict[str, List[str]]) -> str:
     """Generates generic hosts file."""
     ctx = click.get_current_context()
-    x = "# nexy7574 host blocklist generator\n# Generation details:\n# | At: {}\n# | By: {} @ {} on {}\n# | With: {}"
+    x = "# nexy7574 host blocklist generator - https://github.com/nexy7574/nexy7574\n# Generation details:\n# | At: {}\n# | By: {} @ {} on {}\n# | With: {}"
     x = x.format(
         datetime.now(timezone.utc).strftime("%c %Z"),
         subprocess.getoutput("whoami"),
@@ -79,6 +95,53 @@ def generate_generic_hosts_file(hosts: Dict[str, List[str]]) -> str:
     return "\n".join(new_lines)
 
 
+def generate_adguard_block(hosts: list[str], name: str) -> str:
+    """Generates an AdGuard (actually, AdBlock) style block."""
+    x = f"! From: {name}\n"
+    chunk = []
+    for host in hosts:
+        chunk.append(f"||{host}^")
+    x += "\n".join(chunk)
+    return x
+
+
+def generate_adguard_hosts_file(hosts: dict[str, list[str]]) -> str:
+    ctx = click.get_current_context()
+    x = "! nexy7574 host blocklist generator - https://github.com/nexy7574/nexy7574\n# Generation details:\n! | At: {}\n! | By: {} @ {} on {}\n! | With: {}"
+    x = x.format(
+        datetime.now(timezone.utc).strftime("%c %Z"),
+        subprocess.getoutput("whoami"),
+        subprocess.getoutput("hostname"),
+        platform.platform(),
+        " ".join(sys.argv),
+    )
+    with tqdm(hosts.keys(), desc="Generating hosts file", file=sys.stderr) as bar:
+        for name in bar:
+            x += "!\n!\n" + generate_generic_block(hosts[name], name)
+
+    if ctx.params["clean"]:
+        lines = tuple(x.splitlines())
+        new_lines = []
+        with tqdm(lines, desc="Filtering duplicate entries", file=sys.stderr) as bar:
+            for line in bar:
+                if line == "":
+                    new_lines.append(line)
+                if line in new_lines:
+                    continue
+                else:
+                    new_lines.append(line)
+        click.secho(
+            f"Filtered out {(len(lines) - len(new_lines)):,} duplicate entries, resulting in a "
+            f"{len(new_lines):,} line hosts file (instead of {len(lines):,}).",
+            fg="yellow",
+            err=True
+        )
+    else:
+        new_lines = x.splitlines()
+    return "\n".join(new_lines)
+
+
+
 @click.command()
 @click.option(
     "--clean",
@@ -96,7 +159,7 @@ def generate_generic_hosts_file(hosts: Dict[str, List[str]]) -> str:
     "fmt",
     "--format",
     "-F",
-    type=click.Choice(["generic", "adguard"]),
+    type=click.Choice(["generic", "adguard", "all"], case_sensitive=False),
     default="generic",
     help="Output format",
 )
@@ -164,7 +227,11 @@ def main(clean: bool, include: Iterable[str], fmt: Iterable[str], output: str):
         if fmt == "generic":
             f.write(generate_generic_hosts_file(hosts))
         elif fmt == "adguard":
-            raise NotImplementedError("AdGuard format is not implemented yet.")
+            f.write(generate_adguard_hosts_file(hosts))
+        elif fmt == "all":
+            for func in (generate_adguard_hosts_file, generate_generic_hosts_file):
+                f.write(func(hosts))
+                f.write("\n"*5)
         else:
             raise ValueError(f"Unknown format: {fmt}")
 
