@@ -1,41 +1,8 @@
 # nexy7574 host blocklist generator
 # Generation details:
-# | At: Thu Apr 13 18:30:25 2023 UTC
-# | By: nex @ Mike-Oxlongs-Laptop on Linux-6.2.10-arch1-1-x86_64-with-glibc2.37
-# | With: gen-hosts.py -C
-
-# From: hosts.d/google-analytics.com
-0.0.0.0 region1.google-analytics.com
-
-# From: hosts.d/old
-0.0.0.0 adcolony.com
-0.0.0.0 adtilt.com
-0.0.0.0 applovin.com
-0.0.0.0 confection.io
-0.0.0.0 crashlytics.com
-0.0.0.0 amanotes.io
-0.0.0.0 supportmetrics.apple.com
-0.0.0.0 sentry.io
-0.0.0.0 datadoghq.com
-0.0.0.0 analytics.regex101.com
-0.0.0.0 analytics.servogram.io
-0.0.0.0 stats.redditmedia.com
-0.0.0.0 rpi-imager-stats.raspberrypi.com
-0.0.0.0 collect.analytics.unity3d.com
-0.0.0.0 analytics-ios.rayjump.com
-0.0.0.0 ecommerce.iap.unity3d.com
-0.0.0.0 api.mixpanel.com
-0.0.0.0 app-measurement.com
-0.0.0.0 firebaselogging-pa.googleapis.com
-0.0.0.0 confection-status.netlify.app
-0.0.0.0 copilot-telemetry.githubusercontent.com
-0.0.0.0 web-analytics.smile.io
-0.0.0.0 logging.je-apps.com
-0.0.0.0 logging-app.pe-prod.je-labs.com
-0.0.0.0 analytics.dots-services.com
-
-# From: hosts.d/generic
-0.0.0.0 prod-telemetry.paradox-interactive.com
+# | At: Thu May 30 23:48:35 2024 UTC
+# | By: nex @ lizzie on Linux-6.8.10-300.fc40.x86_64-x86_64-with-glibc2.39
+# | With: gen-hosts.py
 
 # From: hosts.d/app-measurement.com
 0.0.0.0 region1.app-measurement.com
@@ -130,6 +97,9 @@
 0.0.0.0 region98.app-measurement.com
 0.0.0.0 region99.app-measurement.com
 
+# From: hosts.d/google-analytics.com
+0.0.0.0 region1.google-analytics.com
+
 # From: hosts.d/log_n-normal-useast1a.tiktokv.com
 0.0.0.0 log15-normal-useast1a.tiktokv.com
 0.0.0.0 log16-normal-useast1a.tiktokv.com
@@ -138,3 +108,35 @@
 0.0.0.0 log22-normal-useast1a.tiktokv.com
 0.0.0.0 log31-normal-useast1a.tiktokv.com
 0.0.0.0 log58-normal-useast1a.tiktokv.com
+
+# From: hosts.d/old
+0.0.0.0 adcolony.com
+0.0.0.0 adtilt.com
+0.0.0.0 applovin.com
+0.0.0.0 confection.io
+0.0.0.0 crashlytics.com
+0.0.0.0 amanotes.io
+0.0.0.0 supportmetrics.apple.com
+0.0.0.0 sentry.io
+0.0.0.0 datadoghq.com
+0.0.0.0 analytics.regex101.com
+0.0.0.0 analytics.servogram.io
+0.0.0.0 stats.redditmedia.com
+0.0.0.0 rpi-imager-stats.raspberrypi.com
+0.0.0.0 collect.analytics.unity3d.com
+0.0.0.0 analytics-ios.rayjump.com
+0.0.0.0 ecommerce.iap.unity3d.com
+0.0.0.0 api.mixpanel.com
+0.0.0.0 app-measurement.com
+0.0.0.0 firebaselogging-pa.googleapis.com
+0.0.0.0 confection-status.netlify.app
+0.0.0.0 copilot-telemetry.githubusercontent.com
+0.0.0.0 web-analytics.smile.io
+0.0.0.0 logging.je-apps.com
+0.0.0.0 logging-app.pe-prod.je-labs.com
+0.0.0.0 web-analytics.smile.io
+0.0.0.0 analytics.dots-services.com
+
+# From: hosts.d/generic
+0.0.0.0 prod-telemetry.paradox-interactive.com
+0.0.0.0 sentry.apparyllis.com
