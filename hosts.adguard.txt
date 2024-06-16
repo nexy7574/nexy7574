@@ -1,62 +1,8 @@
 # nexy7574 host blocklist generator
 # Generation details:
-# | At: Sun Jun 16 12:57:30 2024 UTC
+# | At: Sun Jun 16 13:02:56 2024 UTC
 # | By: ivy\nexus @ ivy on Windows-11-10.0.22631-SP0
 # | With: .\gen-hosts.py -CF all
-
-# From: hosts.d\old.txt
-||adcolony.com
-||adtilt.com
-||applovin.com
-||confection.io
-||crashlytics.com
-||amanotes.io
-||supportmetrics.apple.com
-||sentry.io
-||datadoghq.com
-||analytics.regex101.com
-||analytics.servogram.io
-||stats.redditmedia.com
-||rpi-imager-stats.raspberrypi.com
-||collect.analytics.unity3d.com
-||analytics-ios.rayjump.com
-||ecommerce.iap.unity3d.com
-||api.mixpanel.com
-||app-measurement.com
-||firebaselogging-pa.googleapis.com
-||confection-status.netlify.app
-||copilot-telemetry.githubusercontent.com
-||web-analytics.smile.io
-||logging.je-apps.com
-||logging-app.pe-prod.je-labs.com
-||analytics.dots-services.com
-
-
-# From: hosts.d\log_N-normal-useast1a.tiktokv.com.txt
-||log15-normal-useast1a.tiktokv.com
-||log16-normal-useast1a.tiktokv.com
-||log17-normal-useast1a.tiktokv.com
-||log19-normal-useast1a.tiktokv.com
-||log22-normal-useast1a.tiktokv.com
-||log31-normal-useast1a.tiktokv.com
-||log58-normal-useast1a.tiktokv.com
-
-
-# From: hosts.d\generic.txt
-||prod-telemetry.paradox-interactive.com
-||sentry.apparyllis.com
-
-
-# From: hosts.d\_allow.txt
-||vlscppe.microsoft.com
-||doubledouble.top
-||stats.grafana.org
-||git.gay
-
-
-# From: hosts.d\google-analytics.com.txt
-||region1.google-analytics.com
-
 
 # From: hosts.d\app-measurement.com.txt
 ||region1.app-measurement.com
@@ -150,3 +96,57 @@
 ||region97.app-measurement.com
 ||region98.app-measurement.com
 ||region99.app-measurement.com
+
+
+# From: hosts.d\generic.txt
+||prod-telemetry.paradox-interactive.com
+||sentry.apparyllis.com
+
+
+# From: hosts.d\old.txt
+||adcolony.com
+||adtilt.com
+||applovin.com
+||confection.io
+||crashlytics.com
+||amanotes.io
+||supportmetrics.apple.com
+||sentry.io
+||datadoghq.com
+||analytics.regex101.com
+||analytics.servogram.io
+||stats.redditmedia.com
+||rpi-imager-stats.raspberrypi.com
+||collect.analytics.unity3d.com
+||analytics-ios.rayjump.com
+||ecommerce.iap.unity3d.com
+||api.mixpanel.com
+||app-measurement.com
+||firebaselogging-pa.googleapis.com
+||confection-status.netlify.app
+||copilot-telemetry.githubusercontent.com
+||web-analytics.smile.io
+||logging.je-apps.com
+||logging-app.pe-prod.je-labs.com
+||analytics.dots-services.com
+
+
+# From: hosts.d\_allow.txt
+@@||vlscppe.microsoft.com
+@@||doubledouble.top
+@@||stats.grafana.org
+@@||git.gay
+
+
+# From: hosts.d\google-analytics.com.txt
+||region1.google-analytics.com
+
+
+# From: hosts.d\log_N-normal-useast1a.tiktokv.com.txt
+||log15-normal-useast1a.tiktokv.com
+||log16-normal-useast1a.tiktokv.com
+||log17-normal-useast1a.tiktokv.com
+||log19-normal-useast1a.tiktokv.com
+||log22-normal-useast1a.tiktokv.com
+||log31-normal-useast1a.tiktokv.com
+||log58-normal-useast1a.tiktokv.com

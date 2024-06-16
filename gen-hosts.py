@@ -51,6 +51,8 @@ def generate_generic_block(hosts: List[str], name: str) -> str:
         name = str(_path.relative_to(Path.cwd()))
     x = f"# From: {name}"
     for host in hosts:
+        if host.startswith("~"):
+            continue
         x += "\n0.0.0.0 " + host
     return x
 
@@ -64,12 +66,14 @@ def generate_adguard_block(hosts: List[str], name: str, unblock: bool = False) -
             name = name.lstrip("/")
         _path = Path(name)
         name = str(_path.relative_to(Path.cwd()))
-    if unblock:
-        prefix = "@@||"
-    else:
-        prefix = "||"
     x = f"# From: {name}\n"
     for host in hosts:
+        print(host)
+        if host.startswith("~"):
+            prefix = "@@||"
+            host = host[1:]
+        else:
+            prefix = "||"
         x += prefix + host + "\n"
     return x
 
@@ -87,8 +91,6 @@ def generate_generic_hosts_file(hosts: Dict[str, List[str]]) -> str:
     )
     with tqdm(hosts.keys(), desc="Generating hosts file", file=sys.stderr) as bar:
         for name in bar:
-            if name.startswith("~"):
-                continue  # can't invert in generic format
             x += "\n\n" + generate_generic_block(hosts[name], name)
 
     if ctx.params["clean"]:
@@ -125,10 +127,7 @@ def generate_adguard_hosts_file(hosts: Dict[str, List[str]]) -> str:
     )
     with tqdm(hosts.keys(), desc="Generating hosts file", file=sys.stderr) as bar:
         for name in bar:
-            unblock = False
-            if name.startswith("~"):
-                unblock = True
-            x += "\n\n" + generate_adguard_block(hosts[name], name, unblock)
+            x += "\n\n" + generate_adguard_block(hosts[name], name)
 
     if ctx.params["clean"]:
         lines = tuple(x.splitlines())
