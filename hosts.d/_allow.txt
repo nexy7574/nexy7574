@@ -2,3 +2,4 @@
 ~doubledouble.top
 ~stats.grafana.org
 ~git.gay
+~sentry.io
