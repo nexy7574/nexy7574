@@ -1,6 +1,6 @@
 # nexy7574 host blocklist generator
 # Generation details:
-# | At: Sun Jun 16 13:02:56 2024 UTC
+# | At: Sun Jun 16 13:04:37 2024 UTC
 # | By: ivy\nexus @ ivy on Windows-11-10.0.22631-SP0
 # | With: .\gen-hosts.py -CF all
 
@@ -98,9 +98,12 @@
 ||region99.app-measurement.com
 
 
-# From: hosts.d\generic.txt
-||prod-telemetry.paradox-interactive.com
-||sentry.apparyllis.com
+# From: hosts.d\_allow.txt
+@@||vlscppe.microsoft.com
+@@||doubledouble.top
+@@||stats.grafana.org
+@@||git.gay
+@@||sentry.io
 
 
 # From: hosts.d\old.txt
@@ -131,15 +134,13 @@
 ||analytics.dots-services.com
 
 
-# From: hosts.d\_allow.txt
-@@||vlscppe.microsoft.com
-@@||doubledouble.top
-@@||stats.grafana.org
-@@||git.gay
-
-
 # From: hosts.d\google-analytics.com.txt
 ||region1.google-analytics.com
+
+
+# From: hosts.d\generic.txt
+||prod-telemetry.paradox-interactive.com
+||sentry.apparyllis.com
 
 
 # From: hosts.d\log_N-normal-useast1a.tiktokv.com.txt

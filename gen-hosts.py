@@ -253,7 +253,8 @@ def main(clean: bool, include: Iterable[str], fmt: Iterable[str], output: str):
                     f.write(generate_adguard_hosts_file(hosts))
                 else:
                     f.write(generate_generic_hosts_file(hosts))
-        os.remove(output)
+        if os.path.exists(output):
+            os.remove(output)
         os.symlink(Path.cwd() / f"{output}.generic.txt", Path(output))
 
 
