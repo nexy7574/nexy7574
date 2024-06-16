@@ -54,7 +54,7 @@ with open(output_location, "w") as output:
         else:
             answer = response
             if isinstance(answer, dns.resolver.Answer) and list(answer):
-                if any(y.address == "0.0.0.0" for y in answer):
+                if any(y.address in ("0.0.0.0", "::", "::1") for y in answer):
                     print("Already blocked")
                 else:
                     print("OK")

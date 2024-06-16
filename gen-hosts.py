@@ -24,7 +24,13 @@ def download(client: httpx.Client, url: str) -> str:
         click.secho(f"Scheme for {url!r} is empty - assuming you meant file://", fg="yellow", err=True)
 
     if parsed.scheme == 'file' or parsed.scheme == "":
-        with open(parsed.path, 'r') as f:
+        if os.name == "nt":
+            _p = Path(parsed.path.lstrip("/")).resolve()
+        else:
+            _p = Path(parsed.path).resolve()
+        if not _p.exists():
+            raise FileNotFoundError(f"File {url!r} does not exist")
+        with open(_p, 'r') as f:
             return f.read()
     elif parsed.scheme in ('http', 'https'):
         r = client.get(url)
@@ -36,9 +42,35 @@ def download(client: httpx.Client, url: str) -> str:
 
 def generate_generic_block(hosts: List[str], name: str) -> str:
     """Generates generic hosts file block."""
+    _p = urlparse(name)
+    if _p.scheme == "file":
+        name = _p.path
+        if os.name == "nt":
+            name = name.lstrip("/")
+        _path = Path(name)
+        name = str(_path.relative_to(Path.cwd()))
     x = f"# From: {name}"
     for host in hosts:
         x += "\n0.0.0.0 " + host
+    return x
+
+
+def generate_adguard_block(hosts: List[str], name: str, unblock: bool = False) -> str:
+    """Generates adguard hosts file block."""
+    _p = urlparse(name)
+    if _p.scheme == "file":
+        name = _p.path
+        if os.name == "nt":
+            name = name.lstrip("/")
+        _path = Path(name)
+        name = str(_path.relative_to(Path.cwd()))
+    if unblock:
+        prefix = "@@||"
+    else:
+        prefix = "||"
+    x = f"# From: {name}\n"
+    for host in hosts:
+        x += prefix + host + "\n"
     return x
 
 
@@ -55,12 +87,54 @@ def generate_generic_hosts_file(hosts: Dict[str, List[str]]) -> str:
     )
     with tqdm(hosts.keys(), desc="Generating hosts file", file=sys.stderr) as bar:
         for name in bar:
+            if name.startswith("~"):
+                continue  # can't invert in generic format
             x += "\n\n" + generate_generic_block(hosts[name], name)
 
     if ctx.params["clean"]:
         lines = tuple(x.splitlines())
         new_lines = []
         with tqdm(lines, desc="Filtering duplicate entries", file=sys.stderr) as bar:
+            for line in bar:
+                if line == "":
+                    new_lines.append(line)
+                if line in new_lines:
+                    continue
+                else:
+                    new_lines.append(line)
+        click.secho(
+            f"Filtered out {(len(lines) - len(new_lines)):,} duplicate entries, resulting in a "
+            f"{len(new_lines):,} line hosts file (instead of {len(lines):,}).",
+            fg="yellow",
+            err=True
+        )
+    else:
+        new_lines = x.splitlines()
+    return "\n".join(new_lines)
+
+
+def generate_adguard_hosts_file(hosts: Dict[str, List[str]]) -> str:
+    ctx = click.get_current_context()
+    x = "# nexy7574 host blocklist generator\n# Generation details:\n# | At: {}\n# | By: {} @ {} on {}\n# | With: {}"
+    x = x.format(
+        datetime.now(timezone.utc).strftime("%c %Z"),
+        subprocess.getoutput("whoami"),
+        subprocess.getoutput("hostname"),
+        platform.platform(),
+        " ".join(sys.argv),
+    )
+    with tqdm(hosts.keys(), desc="Generating hosts file", file=sys.stderr) as bar:
+        for name in bar:
+            unblock = False
+            if name.startswith("~"):
+                unblock = True
+            x += "\n\n" + generate_adguard_block(hosts[name], name, unblock)
+
+    if ctx.params["clean"]:
+        lines = tuple(x.splitlines())
+        new_lines = []
+        bar = tqdm(lines, desc="Filtering duplicate entries", file=sys.stderr)
+        with bar:
             for line in bar:
                 if line == "":
                     new_lines.append(line)
@@ -96,7 +170,7 @@ def generate_generic_hosts_file(hosts: Dict[str, List[str]]) -> str:
     "fmt",
     "--format",
     "-F",
-    type=click.Choice(["generic", "adguard"]),
+    type=click.Choice(["generic", "adguard", "all"]),
     default="generic",
     help="Output format",
 )
@@ -119,10 +193,12 @@ def main(clean: bool, include: Iterable[str], fmt: Iterable[str], output: str):
     if (HOSTS / "gen.conf").exists():
         with open(HOSTS / "gen.conf", 'r') as f:
             config = json.load(f)
-        
+
         for url in config['include']:
             include.add(url)
-    
+    else:
+        config = {"include": [], "invert": ["file://_allow.txt"]}
+
     hosts = {}
     with tqdm(include, desc="Downloading hosts files", file=sys.stderr) as bar:
         for url in bar:
@@ -144,6 +220,8 @@ def main(clean: bool, include: Iterable[str], fmt: Iterable[str], output: str):
                     if line.startswith(('!', '#', ';')):
                         continue
                     line = line.split("#", maxsplit=1)[0].strip()  # remove comments
+                    if url in config['invert']:
+                        line = "~" + line
 
                     try:
                         ip, host = line.split(maxsplit=1)
@@ -160,13 +238,24 @@ def main(clean: bool, include: Iterable[str], fmt: Iterable[str], output: str):
                     except ValueError:
                         # Just plain domain names
                         hosts[key].append(line)
-    with click.open_file(output, 'w') as f:
-        if fmt == "generic":
-            f.write(generate_generic_hosts_file(hosts))
-        elif fmt == "adguard":
-            raise NotImplementedError("AdGuard format is not implemented yet.")
-        else:
-            raise ValueError(f"Unknown format: {fmt}")
+
+    if fmt != "all":
+        with click.open_file(output, 'w') as f:
+            if fmt == "generic":
+                f.write(generate_generic_hosts_file(hosts))
+            elif fmt == "adguard":
+                f.write(generate_adguard_hosts_file(hosts))
+            else:
+                raise ValueError(f"Unknown format: {fmt}")
+    else:
+        for fn in [f"{output}.adguard.txt", f"{output}.generic.txt"]:
+            with click.open_file(fn, 'w') as f:
+                if fn.endswith(".adguard.txt"):
+                    f.write(generate_adguard_hosts_file(hosts))
+                else:
+                    f.write(generate_generic_hosts_file(hosts))
+        os.remove(output)
+        os.symlink(Path.cwd() / f"{output}.generic.txt", Path(output))
 
 
 if __name__ == "__main__":
