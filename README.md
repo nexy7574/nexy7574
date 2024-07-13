@@ -12,7 +12,7 @@ You will likely find more up-to-date and information-rich stuff about me and my 
 
 * [My Website](https://nexy7574.co.uk)
 * [Forgejo (self-hosted git)](https://git.i-am.nexus/nex)
-* [![{M}](https://raw.githubusercontent.com/nexy7574/nexy7574/master/README.d/img/si-matrix-color.svg) Mastodon: @nex:m.nexy7574.co.uk](https://m.nexy7574.co.uk/@nex)
+* [![{M}](https://raw.githubusercontent.com/nexy7574/nexy7574/master/README.d/img/si-mastodon-color.svg) Mastodon: @nex:m.nexy7574.co.uk](https://m.nexy7574.co.uk/@nex)
 * [GitHub Projects](https://github.com/nexy7574?tab=repositories&sort=stargazers)
 
 ## Contact
