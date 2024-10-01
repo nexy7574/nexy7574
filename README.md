@@ -1,4 +1,4 @@
-# Hi there 👋
+# Hello there
 
 Full about me -> **__[nexy7574.co.uk](https://nexy7574.co.uk)__**
 
@@ -12,12 +12,12 @@ You will likely find more up-to-date and information-rich stuff about me and my 
 
 * [My Website](https://nexy7574.co.uk)
 * [Forgejo (self-hosted git)](https://git.i-am.nexus/nex)
-* [![{M}](https://raw.githubusercontent.com/nexy7574/nexy7574/master/README.d/img/si-mastodon-color.svg) Mastodon: @nex:m.nexy7574.co.uk](https://m.nexy7574.co.uk/@nex)
+* [Fediverse (Mastodon): @nex:m.nexy7574.co.uk](https://fedi.transgender.ing/@nex)
 * [GitHub Projects](https://github.com/nexy7574?tab=repositories&sort=stargazers)
 
 ## Contact
 
 Need to talk to me? You can reach me here (in order of preference)
 * [![\[M\]](https://raw.githubusercontent.com/nexy7574/nexy7574/master/README.d/img/si-matrix-color.svg) Matrix: @nex:nexy7574.co.uk](https://matrix.to/#/@nex:nexy7574.co.uk)
-* [![o.o](https://raw.githubusercontent.com/nexy7574/nexy7574/master/README.d/img/si-discord-color.svg) Discord: (discord.gg/TveBeG7](https://discord.gg/TveBeG7)
+* [![o.o](https://raw.githubusercontent.com/nexy7574/nexy7574/master/README.d/img/si-discord-color.svg) Discord: (discord.gg/TveBeG7)](https://discord.gg/TveBeG7)
 * [![](https://raw.githubusercontent.com/nexy7574/nexy7574/master/README.d/img/wkm-apple-mail-color.svg) Email: git@nexy7574.co.uk (GPG enabled, key is on wkd, ubuntu keyserver, or my website)](mailto:git@nexy7574.co.uk)
