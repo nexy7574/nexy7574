@@ -1,2 +1,3 @@
 prod-telemetry.paradox-interactive.com
 sentry.apparyllis.com
+trollfox.fsky.io
